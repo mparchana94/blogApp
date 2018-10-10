@@ -2,19 +2,27 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-  </div>
-
-  <h2>Sub categories</h2>
-  <%= f.fields_for :sub_categories do |sub_category | %>
-    <div class="sub_category_field">
+  
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
       <div class="form-inputs">
-        <%= sub_category.input :name %>
+        <%= f.input :name %>
       </div>
+
+      <h2>Sub categories</h2>
+      <%= f.simple_fields_for :sub_categories do |sub_category | %>
+        <div class="sub_category_field">
+          <div class="form-inputs">
+            <%= sub_category.input :name %>
+            
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-   <p><%= f.link_to_add "Add a sub_category", :sub_categories, :data => { :target => "#sub_categories" } %></p>
+    <div class="col-2"></div>
+     <p><%#= f.link_to_add "Add sub_category", :sub_categories, :data => { :target => "#sub_categories" } %></p>
+ </div>
 
 
   <div class="form-actions">

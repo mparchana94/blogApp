@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"> Blog Application </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto ">
+      <li class="nav-item active">
+        <a class="nav-link" href="/articles">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/categories">Categories</a>
+          <a class="dropdown-item" href="/sub_categories">Sub Categories</a>
+          <%#= link_to 'All Photos', all_photos_galleries_path, class: "dropdown-item" %>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+
+      
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0">
+      
+      <%= form_tag(articles_path, :method => "get", id: "search-form") do |f| %>
+       <%#= simple_form_for @galleries_path, :method => "get", id: "search-form" do |f| %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Images" %>
+        <%= submit_tag "Search", class: "btn btn-primary" %>    
+    
+      <% end %>
+    </form>
+  </div>
+</nav
