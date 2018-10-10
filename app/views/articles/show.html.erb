@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+       <th colspan="2"><center>Article Details</center></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Title:</strong></td>
+        <td> <%= @article.title %></td>
+      </tr>
+
+      <tr>
+        <td><strong>Content:</strong></td>
+        <td><%= @article.content %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Edit', edit_article_path(@article), class: "btn btn-info" %> |
+<%= link_to 'Back', articles_path, class: "btn btn-secondary" %>
+

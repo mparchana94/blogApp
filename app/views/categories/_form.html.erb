@@ -1,0 +1,33 @@
+<%= simple_nested_form_for(@category) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+  </div>
+
+  <h2>Sub categories</h2>
+  <%= f.fields_for :sub_categories do |sub_category | %>
+    <div class="sub_category_field">
+      <div class="form-inputs">
+        <%= sub_category.input :name %>
+      </div>
+    </div>
+  <% end %>
+   <p><%= f.link_to_add "Add a sub_category", :sub_categories, :data => { :target => "#sub_categories" } %></p>
+
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-success" %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag :defaults, "nested_form" %>
+
+<%#= simple_nested_form_for @category do |f| %>
+  <%#= f.input :name %>
+ <%#= f.simple_fields_for :tags, @category.subcategories_for_form do |category| %>
+   <%#= subcategory.input :name, label: "Subcategory Name" %>
+    <%#= subcategory.input :category_id, input_html: {value: @category.id}, as: :hidden %>
+  <%# end %>
+<%# end %>
