@@ -19,11 +19,12 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @sub_categories = SubCategory.all
   end
 
   def create
     @article = Article.new(article_params)
-
+    @sub_categories = SubCategory.all
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -36,6 +37,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    @sub_categories = SubCategory.all
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: 'Article was successfully updated.' }
@@ -56,7 +58,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-  
     def set_article
       @article = Article.find(params[:id])
     end

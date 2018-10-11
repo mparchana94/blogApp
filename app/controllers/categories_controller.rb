@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
  
 
   def edit
-    @category.sub_categories.build
+    #@category.sub_categories.build
   end
 
   def sub_category

@@ -16,6 +16,21 @@
         <td><strong>Content:</strong></td>
         <td><%= @article.content %></td>
       </tr>
+
+     <tr>
+        <td><strong>SubCategories:</strong></td>
+        <td>
+          <ul>
+            <% @article.sub_categories.each do |sub_category| %>
+              <%= link_to sub_category do %>
+                <li class="list-group">
+                  <%= sub_category.name %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

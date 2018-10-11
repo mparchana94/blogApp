@@ -10,18 +10,15 @@
         <a class="nav-link" href="/articles">Home <span class="sr-only">(current)</span></a>
       </li>
 
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          More
-        </a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false"> More</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/categories">Categories</a>
           <%= link_to 'Sub Categories', sub_category_categories_path, class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-
-      
+      </li>
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
@@ -29,8 +26,7 @@
       <%= form_tag(articles_path, :method => "get", id: "search-form") do |f| %>
        <%#= simple_form_for @galleries_path, :method => "get", id: "search-form" do |f| %>
         <%= text_field_tag :search, params[:search], placeholder: "Search articles" %>
-        <%= submit_tag "Search", class: "btn btn-primary" %>    
-    
+        <%= submit_tag "Search", class: "btn btn-primary" %>
       <% end %>
     </form>
   </div>
