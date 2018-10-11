@@ -2,7 +2,12 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all
+    search = params[:search]
+    if search.present?
+      @articles = Article.where('title LIKE ? ', search)
+    else
+      @articles = Article.all
+    end
   end
 
   def show
@@ -10,6 +15,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @sub_categories = SubCategory.all
   end
 
   def edit

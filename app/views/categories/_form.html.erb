@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <div class="col-2"></div>
-     <p><%#= f.link_to_add "Add sub_category", :sub_categories, :data => { :target => "#sub_categories" } %></p>
+     <p><%= f.link_to_add "Add SubCategory", :sub_categories, :data => { :target => "#sub_categories" } %></p>
  </div>
 
 
@@ -30,7 +30,7 @@
   </div>
 <% end %>
 
-<%= javascript_include_tag :defaults, "nested_form" %>
+<%s= javascript_include_tag :defaults, "nested_form" %>
 
 <%#= simple_nested_form_for @category do |f| %>
   <%#= f.input :name %>

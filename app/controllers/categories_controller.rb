@@ -18,6 +18,10 @@ class CategoriesController < ApplicationController
     @category.sub_categories.build
   end
 
+  def sub_category
+    @category = Category.all
+  end
+
   def create
     @category = Category.new(category_params)
   

@@ -10,8 +10,8 @@
     <%= f.input :content %>
 
     <% @sub_categories.all.each do |category| %>
-      <%= check_box_tag "sub_category[category_ids][]", category.id, @sub_category.category_ids.include?(category.id) %>
-      <%= sub_category.name %>
+      <%= check_box_tag "sub_category[category_ids][]", category.id %>
+      <%= category.name %>
       <br>
     <% end %>
   </div>

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :categories
+  resources :categories do
+    get :sub_category, on: :collection
+  end
   resources :articles
-  resources :sub_categories
+  # resources :sub_categories
 
   root "articles#index"
   # The priority is based upon order of creation: first created -> highest priority.
