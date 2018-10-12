@@ -27,6 +27,8 @@ gem 'jquery-rails'
 gem 'simple_form'
  gem 'nested_form'
  gem 'devise'
+ gem 'will_paginate'
+ gem 'will_paginate-bootstrap'
 
 
 # Use ActiveModel has_secure_password

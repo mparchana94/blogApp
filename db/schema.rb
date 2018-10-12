@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181012044517) do
+ActiveRecord::Schema.define(version: 20181012053947) do
 
   create_table "article_categories", force: :cascade do |t|
     t.integer  "article_id",  limit: 4
@@ -23,11 +23,28 @@ ActiveRecord::Schema.define(version: 20181012044517) do
   add_index "article_categories", ["article_id"], name: "index_article_categories_on_article_id", using: :btree
   add_index "article_categories", ["category_id"], name: "index_article_categories_on_category_id", using: :btree
 
+  create_table "article_sub_categories", force: :cascade do |t|
+    t.integer  "article_id",   limit: 4
+    t.string   "sub_category", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "article_sub_categories", ["article_id"], name: "index_article_sub_categories_on_article_id", using: :btree
+
+  create_table "article_subcategories", force: :cascade do |t|
+    t.integer  "article_id",      limit: 4
+    t.integer  "sub_category_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "user_id",    limit: 4
   end
 
   create_table "categories", force: :cascade do |t|
@@ -59,4 +76,5 @@ ActiveRecord::Schema.define(version: 20181012044517) do
 
   add_foreign_key "article_categories", "articles"
   add_foreign_key "article_categories", "categories"
+  add_foreign_key "article_sub_categories", "articles"
 end

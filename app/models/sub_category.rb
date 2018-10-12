@@ -1,11 +1,8 @@
 class SubCategory < ActiveRecord::Base
   belongs_to :category
-  belongs_to :article
+  has_and_belongs_to_many :articles
 
   validates :name, :presence => true
 
-  def to_s
-    name
-  end
   
 end

@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @sub_categories = SubCategory.all
+    @article.user_id = current_user.id
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -37,15 +38,20 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @sub_categories = SubCategory.all
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    if (current_user.admin) || (@article.user_id == current_user.id)
+      @sub_categories = SubCategory.all
+
+      respond_to do |format|
+        if @article.update(article_params)
+          format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+          format.json { render :show, status: :ok, location: @article }
+        else
+          format.html { render :edit }
+          format.json { render json: @article.errors, status: :unprocessable_entity }
+        end
+     end
+    else
+      redirect_to @article, notice: 'Not admin or creator.'
     end
   end
 
