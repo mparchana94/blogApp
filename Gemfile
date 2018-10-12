@@ -25,7 +25,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'simple_form'
-# gem 'nested_form'
+ gem 'nested_form'
+ gem 'devise'
 
 
 # Use ActiveModel has_secure_password
