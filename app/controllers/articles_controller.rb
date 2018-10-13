@@ -6,7 +6,8 @@ class ArticlesController < ApplicationController
     if search.present?
       @articles = Article.where('title LIKE ? ', search)
     else
-      @articles = Article.all
+      @articles = Article.paginate(page: params[:page], per_page: 1)
+      # @articles = Article.all
     end
   end
 

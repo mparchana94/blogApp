@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   resources :categories do
     get :sub_category, on: :collection
+
   end
-  resources :articles
+  resources :articles do
+    get :all_articles, on: :member
+  end
   # resources :sub_categories
 
   root "articles#index"
