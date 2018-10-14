@@ -13,38 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20181014123802) do
 
-  create_table "article_categories", force: :cascade do |t|
-    t.integer  "article_id",  limit: 4
-    t.integer  "category_id", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  add_index "article_categories", ["article_id"], name: "index_article_categories_on_article_id", using: :btree
-  add_index "article_categories", ["category_id"], name: "index_article_categories_on_category_id", using: :btree
-
-  create_table "article_sub_categories", force: :cascade do |t|
-    t.integer  "article_id",   limit: 4
-    t.string   "sub_category", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "article_sub_categories", ["article_id"], name: "index_article_sub_categories_on_article_id", using: :btree
-
-  create_table "article_subcategories", force: :cascade do |t|
-    t.integer  "article_id",      limit: 4
-    t.integer  "sub_category_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "user_id",    limit: 4
+  end
+
+  create_table "articles_sub_categories", force: :cascade do |t|
+    t.integer "sub_category_id", limit: 4
+    t.integer "article_id",      limit: 4
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,11 +37,6 @@ ActiveRecord::Schema.define(version: 20181014123802) do
     t.integer  "category_id", limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-  end
-
-  create_table "subcategory_articles", force: :cascade do |t|
-    t.integer "sub_category_id", limit: 4
-    t.integer "article_id",      limit: 4
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,7 +53,4 @@ ActiveRecord::Schema.define(version: 20181014123802) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "article_categories", "articles"
-  add_foreign_key "article_categories", "categories"
-  add_foreign_key "article_sub_categories", "articles"
 end
