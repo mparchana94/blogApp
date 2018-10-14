@@ -18,10 +18,11 @@
         <p><%= article.content %></p>
       </tr>
         <% end %>
+        <div class="btn-stack">
+          <%= link_to 'Edit', edit_article_path(article), class: "btn btn-secondary" %>
+      </div>
     </ul>
   
-
-
   <%= will_paginate @articles, :container => false %>
 </div>
 
