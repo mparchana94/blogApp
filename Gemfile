@@ -29,6 +29,7 @@ gem 'simple_form'
  gem 'devise'
  gem 'devise-bootstrapped'
  gem 'will_paginate', '~> 3.1.0'
+ gem 'will_paginate-bootstrap4'
 
 
 # Use ActiveModel has_secure_password

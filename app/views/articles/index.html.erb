@@ -5,24 +5,26 @@
     <ul class="pagination">
       <div class="page-item">
         <% @articles.each do |article| %>
-      
-      <div class="container text-center">
-        <p class="date"><%= article.created_at.strftime('%A, %B %d') %></p>
-      </div>
-      <tr>
-        <p><strong>Title:</strong></p>
-        <p><%= article.title %></p>
-      </tr>
-      <tr>
-        <p><strong>content:</strong></p>
-        <p><%= article.content %></p>
-      </tr>
+        <div class="row">
+          <div class="col-6 col-md-4">
+            Date: <%= article.created_at.strftime('%A, %B %d') %>
+          </div>
+          <div class="col-6 col-md-4">
+            <b>Title: <%= article.title %></b>
+          </div>
+          
+            <div class="col-6 col-md-4">
+              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-secondary" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col align-self-center">
+            <%= article.content %>
+          </div>
+        </div>
         <% end %>
-        <div class="btn-stack">
-          <%= link_to 'Edit', edit_article_path(article), class: "btn btn-secondary" %>
       </div>
     </ul>
-  
-  <%= will_paginate @articles, :container => false %>
-</div>
 
+    <%= will_paginate @articles, :container => false %>
+  </div>
