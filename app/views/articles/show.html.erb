@@ -20,16 +20,13 @@
        <tr>
         
         <td><strong>Sub Categories</strong></td>
-         <% if @category.sub_categories.any? %>
+         <%# if @article.sub_categories.any? %>
         <td>
           <ul>
-            <% @category.sub_categories.each do |sub_category| %>
+            <% @article.sub_categories.each do |sub_category| %>
               <li><%= sub_category.name %></li>
             <% end %>
           </ul>
-            <% else %>
-              <p> none available </p>
-            <% end %>
         </td>
       </tr>
 

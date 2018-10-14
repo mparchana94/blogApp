@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.sub_categories_id =params[:article][:sub_category_ids] rescue []
     @sub_categories = SubCategory.all
     @article.user_id = current_user.id
     respond_to do |format|
@@ -70,6 +71,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :content)
+      params.require(:article).permit(:title, :content, :sub_category_ids [])
     end
 end
