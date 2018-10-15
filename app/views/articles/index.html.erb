@@ -1,30 +1,42 @@
 <p id="notice"><%= notice %></p>
-
 <h1> Articles</h1>
-  <div class="container-fluid text-center">
-    <ul class="pagination">
+  <div class="d-flex align-items-center flex-column justify-content-center h-100" id="header">
+    <ul class="pagination justify-content-center">
       <div class="page-item">
         <% @articles.each do |article| %>
-        <div class="row">
-          <div class="col-6 col-md-4">
-            Date: <%= article.created_at.strftime('%A, %B %d') %>
-          </div>
-          <div class="col-6 col-md-4">
-            <b>Title: <%= article.title %></b>
-          </div>
-          
+          <div class="row">
             <div class="col-6 col-md-4">
-              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-secondary" %>
+              Date: <%= article.created_at.strftime('%A, %B %d') %>
+            </div>
+            <div class="col-6 col-md-4">
+              <b>Title: <%= article.title %></b>
+            </div>
+            <div class="col-6 col-md-4">
+              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col align-self-center">
-            <%= article.content %>
+
+          <div class="row">
+            <div class="col align-self-center">
+              <%= article.content %>
+            </div>
           </div>
-        </div>
+
+          <div class="row justify-content-center align-items-center" class="col-md-4">
+           <form class="col-4">
+              <div class="form-group">
+                <%#= simple_form_for(comments_path, :method => "post", id: "comment-form") do |f| %>
+                <%= simple_form_for Comment.new, :url => comments_path, :method => :post do |f| %>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
+                  <%= f.hidden_field :article_id, value: article.id %>
+                  <%= f.input :comment, placeholder: "Comment on Articles" %>
+                  <%= f.submit "Comment", class: "btn btn-primary" %>
+                <% end %>
+              </div>
+            </form>
+          </div>
         <% end %>
       </div>
     </ul>
-
     <%= will_paginate @articles, :container => false %>
   </div>

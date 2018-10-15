@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
+    @comment = Comment.new
     search = params[:search]
     if search.present?
       @articles = Article.where('title LIKE ? ', search)
@@ -12,6 +13,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = Comment.where(article_id: @article.id)
   end
 
   def new
@@ -21,6 +24,11 @@ class ArticlesController < ApplicationController
 
   def edit
     @sub_categories = SubCategory.all
+  end
+
+  def all_articles
+    #@articles = Article.all
+    
   end
 
   def create
