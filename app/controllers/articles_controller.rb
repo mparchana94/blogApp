@@ -1,11 +1,24 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :add_comment]
+
+
+  def add_comment
+    @comment = @article.comments.build(comment_params)
+    @comment.user_id = current_user.id
+    if @comment.save
+      flash[:notice] = "Successfully created comment."
+      redirect_to @commentable
+    else
+      flash[:error] = "Error adding comment."
+    end
+    
+  end
 
   def index
     @comment = Comment.new
     search = params[:search]
     if search.present?
-      @articles = Article.where('title LIKE ? ', search)
+      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 1)
     else
       @articles = Article.paginate(page: params[:page], per_page: 1)
       # @articles = Article.all
@@ -27,7 +40,7 @@ class ArticlesController < ApplicationController
   end
 
   def all_articles
-    #@articles = Article.all
+    @articles = Article.all
     
   end
 
@@ -78,6 +91,11 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :content, sub_category_ids: [])
+      params.require(:article).permit(:title, :content, sub_category_ids: [], comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type])
     end
+
+     def comment_params
+       params.require(:comment).permit(comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type])
+       
+     end
 end
