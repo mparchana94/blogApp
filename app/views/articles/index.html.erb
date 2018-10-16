@@ -25,11 +25,15 @@
           <div class="row justify-content-center align-items-center" class="col-md-4">
            <form class="col-4 sm-10">
               <div class="form-group">
-                <%= simple_nested_form_for add_comment_article_path(article.id) do |f| %>
-                <%#= simple_nested_form_for article, :url => add_comment_article_url(article.id), :method => :post do |f| %>
-                  <%= f.hidden_field :user_id, value: current_user.id %>
-                  <%= f.input :comments, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
-                  <%= f.submit "Comment", class: "btn btn-primary" %>
+                <%= simple_nested_form_for(article, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |f| %>
+                  <%= f.simple_fields_for :comments, @comment do |c|  %>
+                    <%= c.hidden_field :user_id, value: current_user.id %>
+                    <%= c.hidden_field :article_id, value: article.id %>
+                    <%= c.hidden_field :commentable_type, value: "Article" %>
+                    <%= c.hidden_field :commentable_id, value: article.id %>
+                    <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
+                    <%= c.submit "Comment", class: "btn btn-primary" %>
+                  <% end %>
                 <% end %>
               </div>
             </form>

@@ -3,11 +3,14 @@ class ArticlesController < ApplicationController
 
 
   def add_comment
+    @comment = @commentable.comments.new comment_params
     @comment = @article.comments.build(comment_params)
+    puts comment_params.inspect
+    pust "====================="
     @comment.user_id = current_user.id
-    if @comment.save
+    if @comment.save!
       flash[:notice] = "Successfully created comment."
-      redirect_to @commentable
+      redirect_to @articles
     else
       flash[:error] = "Error adding comment."
     end
@@ -23,6 +26,18 @@ class ArticlesController < ApplicationController
       @articles = Article.paginate(page: params[:page], per_page: 1)
       # @articles = Article.all
     end
+
+    # puts "================="
+    # puts params.inspect
+    # article_id = params["article"]["article_id"]
+    # puts article_id.inspect
+    # article = Article.find(article_id)
+    # # comment_params = params["article"]["comments_attributes"]
+    # @comment = article.comments.build(comment_params)
+    # puts comment_params.inspect
+    # pust "====================="
+    # @comment.user_id = current_user.id
+    # @comment.save!
   end
 
   def show
@@ -94,8 +109,7 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :content, sub_category_ids: [], comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type])
     end
 
-     def comment_params
-       params.require(:comment).permit(comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type])
-       
-     end
+    def comment_params
+      params.require(:comment).permit(comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type]) 
+    end
 end
