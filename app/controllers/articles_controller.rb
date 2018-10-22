@@ -12,24 +12,13 @@ class ArticlesController < ApplicationController
     end 
   end
 
-  #def delete_comment
-    #@comment = @article.comments.build(comment_params)
-    #@article = Article.find(params[:article_id])
-    #@comment = @article.comments.find(params[:id])
-    #if @comment.destroy
-      #flash[:notice] = "Successfully deleted comment"
-      #redirect_to articles_path
-    #else
-      #flash[:error] = "error deleting comment"
-    #end
-  #end
-
   def index
     search = params[:search]
     if search.present?
-      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 1)
+      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 3)
+      @article = Article.where('content LIKE ? ', search).paginate(page: params[:page], per_page: 3)
     else
-      @articles = Article.paginate(page: params[:page], per_page: 1)
+      @articles = Article.paginate(page: params[:page], per_page: 3)
       # @articles = Article.all
     end
   end

@@ -39,8 +39,7 @@
               </div>
             <div class="col-6 col-md-4"></div>
           </div>
-          
-
+      
           <div class="row justify-content-center align-items-center" class="col-md-4">
             <div class="col-4 sm-10">
               <div class="form-group">
@@ -62,3 +61,14 @@
     </ul>
     <%= will_paginate @articles, :container => false %>
   </div>
+
+<script type="text/javascript">
+  function addComment() {
+    alert("checked the button - worked");
+      $.ajax({
+        type:'POST', 
+        url: 'articles/add_comment', 
+        data: $.param({ comment: {:comment, :user_id, :article_id, :commentable_id, :commentable_type "whatever", start: 7, end: 21 }})
+      });
+  }
+</script>

@@ -14,9 +14,7 @@ class CategoriesController < ApplicationController
     @category.sub_categories.build
   end
  
-
   def edit
-    #@category.sub_categories.build
   end
 
   def sub_category
@@ -67,4 +65,3 @@ class CategoriesController < ApplicationController
       params.require(:category).permit(:name, sub_categories_attributes: [:id, :name])
     end
 end
-
