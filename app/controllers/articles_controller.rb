@@ -1,24 +1,30 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :add_comment]
-
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :add_comment, :delete_comment]
 
   def add_comment
-    @comment = @commentable.comments.new comment_params
     @comment = @article.comments.build(comment_params)
-    puts comment_params.inspect
-    pust "====================="
     @comment.user_id = current_user.id
-    if @comment.save!
+    if @comment.save
       flash[:notice] = "Successfully created comment."
-      redirect_to @articles
+      redirect_to articles_path
     else
       flash[:error] = "Error adding comment."
-    end
-    
+    end 
   end
 
+  #def delete_comment
+    #@comment = @article.comments.build(comment_params)
+    #@article = Article.find(params[:article_id])
+    #@comment = @article.comments.find(params[:id])
+    #if @comment.destroy
+      #flash[:notice] = "Successfully deleted comment"
+      #redirect_to articles_path
+    #else
+      #flash[:error] = "error deleting comment"
+    #end
+  #end
+
   def index
-    @comment = Comment.new
     search = params[:search]
     if search.present?
       @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 1)
@@ -26,22 +32,9 @@ class ArticlesController < ApplicationController
       @articles = Article.paginate(page: params[:page], per_page: 1)
       # @articles = Article.all
     end
-
-    # puts "================="
-    # puts params.inspect
-    # article_id = params["article"]["article_id"]
-    # puts article_id.inspect
-    # article = Article.find(article_id)
-    # # comment_params = params["article"]["comments_attributes"]
-    # @comment = article.comments.build(comment_params)
-    # puts comment_params.inspect
-    # pust "====================="
-    # @comment.user_id = current_user.id
-    # @comment.save!
   end
 
   def show
-    @comment = Comment.new
     @comments = Comment.where(article_id: @article.id)
   end
 
@@ -110,6 +103,6 @@ class ArticlesController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type]) 
+      params.require(:comment).permit(:comment, :user_id, :article_id, :commentable_id, :commentable_type) 
     end
 end

@@ -22,21 +22,40 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-6 col-md-4"></div>
+              <div class="col-6 col-md-4">
+                <div class="card text-center">
+                  <% article.comments.each do |com| %>
+                    <div class="card-body">
+                      <p class="card-text"> <%= com.comment %></p>
+                    </div>
+                    <div class="card-footer text-muted">
+                      <%= time_ago_in_words(com.created_at) %>
+                      <%#= link_to 'Delete' , [delete_comment_article_path(com.id)], method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <div class="col-6 col-md-4"></div>
+          </div>
+          
+
           <div class="row justify-content-center align-items-center" class="col-md-4">
-           <form class="col-4 sm-10">
+            <div class="col-4 sm-10">
               <div class="form-group">
-                <%= simple_nested_form_for(article, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |f| %>
-                  <%= f.simple_fields_for :comments, @comment do |c|  %>
+                <%= simple_nested_form_for(:comment, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                  <%#= c.simple_fields_for :comments, @comment do |c|  %>
                     <%= c.hidden_field :user_id, value: current_user.id %>
                     <%= c.hidden_field :article_id, value: article.id %>
                     <%= c.hidden_field :commentable_type, value: "Article" %>
                     <%= c.hidden_field :commentable_id, value: article.id %>
                     <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
                     <%= c.submit "Comment", class: "btn btn-primary" %>
-                  <% end %>
+                  <%# end %>
                 <% end %>
               </div>
-            </form>
+            </div>
           </div>
         <% end %>
       </div>

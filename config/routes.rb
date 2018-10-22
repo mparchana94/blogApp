@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :articles do
     get :all_articles, on: :collection
     post :add_comment, on: :member
+    delete :delete_comment, on: :member 
 
   end
   # resources :comments
