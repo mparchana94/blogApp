@@ -8,7 +8,9 @@ class ArticlesController < ApplicationController
       flash[:notice] = "Successfully created comment."
       redirect_to articles_path
     else
-      flash[:error] = "Error adding comment."
+      puts "else"
+      flash[:alert] = "Error adding comment."
+      redirect_to articles_path
     end 
   end
 

@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 <div class="container">
   <table class="table table-bordered table-striped">
     <thead>
@@ -33,5 +33,45 @@
   </table>
 </div>
 
+<%= link_to 'Edit', edit_article_path(@article), class: "btn btn-info" %> |
+<%= link_to 'Back', articles_path, class: "btn btn-secondary" %>
+
+
+<p id="notice"><%= notice %></p>
+<div class="container " >
+  <div class="card-columns">
+    <div class="mr-10 p-1 mt-sm-1 mb-sm-1 ">
+      <div class="card-block">
+       <h4 class="Article Details"><center>Article Details</center></h4>
+        <div class="card bg-light">
+      
+          <div class="card-body text-center">
+            <p class="card-text">
+               <p><h2><%= @article.title%></h2></p>
+            </p>
+          </div>
+            
+          <div class="card-body text-center">
+            <p class="card-text">
+              <p><%=@article.content%></p>
+            </p>
+          </div>
+
+          <div class="card-body text-center">
+            <p class="card-text">
+              <p><strong>Sub Categories:</strong></p>
+               <ul>
+                <% @article.sub_categories.each do |sub_category| %>
+                  <li><%= sub_category.name %></li>
+                <% end %>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   
 <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-info" %> |
 <%= link_to 'Back', articles_path, class: "btn btn-secondary" %>
