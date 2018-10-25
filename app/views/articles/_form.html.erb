@@ -10,12 +10,13 @@
           <div class="container">
             <div class="row">
               <% @sub_categories.all.each do |sub_category| %>
+             
                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                  <%#= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
-                  <%#= sub_category.name %>
-                </div>
-                <li><%= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
+                  <li><%= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
                   <%= sub_category.name %></li>
+                </div>
+                <%#= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
+                  <%#= sub_category.name %>
                 <br>
               <% end %>
             </div>
@@ -25,7 +26,7 @@
   </div>
 
 
-  <div class="form-actions text-center">
+  <div class="form-actions text-center"> 
     <%= f.button :submit , class: "btn btn-success" %>
   </div>
 <% end %>

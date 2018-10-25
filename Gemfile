@@ -25,11 +25,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'simple_form'
- gem 'nested_form'
- gem 'devise'
- gem 'devise-bootstrapped'
- gem 'will_paginate', '~> 3.1.0'
- gem 'will_paginate-bootstrap4'
+gem 'nested_form'
+gem 'devise'
+gem 'devise-bootstrapped'
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap4'
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'
 
 
 # Use ActiveModel has_secure_password

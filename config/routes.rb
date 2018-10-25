@@ -2,14 +2,13 @@ Rails.application.routes.draw do
   devise_for :users
   resources :categories do
     get :sub_category, on: :collection
-    #get :all_articles, on: :collection
-
   end
+
   resources :articles do
     get :all_articles, on: :collection
     post :add_comment, on: :member
-    delete :delete_comment, on: :member 
-
+    delete :delete_comment, on: :member
+    post :reply, on: :member
   end
   # resources :comments
   # resources :sub_categories

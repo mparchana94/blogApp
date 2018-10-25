@@ -1,4 +1,7 @@
-<h1> Articles</h1><%= link_to 'New Article', new_article_path, class: "btn btn-primary" %>
+<h1> Articles</h1>
+<div class="container text-center" style= "margin-left: 400px;">
+<%= link_to 'New Article', new_article_path, class: "btn btn-primary" %>
+</div>
   <div class="d-flex align-items-center flex-column justify-content-center h-100" id="header" style="margin-left: 100px; margin-right: 100px; margin-top: 30px;">
     <ul class="pagination justify-content-center">
       <div class="page-item">
@@ -11,8 +14,9 @@
               <b><h2><%= article.title %></h2></b>
             </div>
             <div class="col-6 col-md-4 text-right">
-               <span class="float-right"><%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %></span>
-              <%#= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+              <span class="float-right">
+                <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+              </span> 
             </div>
           </div>
 
@@ -29,10 +33,27 @@
                   <% article.comments.each do |com| %>
                     <div class="card-body">
                       <p class="card-text"></p>
+                      <p><%= com.user.user_image %></p>
                         <p><%= com.user.email %></p>
                         <p><%= com.comment %></p>
                         <p><%= localize(com.created_at, format: :long) %></p>
-                        <%= link_to "Edit", edit_article_path([com.commentable, com]), class: 'edit-comment-link', remote: true  %>
+                        <%#= link_to "Edit", edit_article_path([com.commentable, com]), class: 'edit-comment-link'  %>
+                       <div class="row justify-content-center align-items-center" class="col-md-4">
+                         <div class="col-8 sm-10">
+                           <div class="form-group">
+                              <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                                 <%= c.hidden_field :user_id, value: current_user.id %>
+                                 <%= c.hidden_field :parent_id, value: article.id %>
+                                <a href="#" id="show_reply">Reply</a>
+                                <div id="reply" class="hidden">
+                                  <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "comment " %>
+                                   <%= c.submit "Reply", class: "btn btn-primary" %>
+                                </div>
+                                <div class="clearfix"></div>
+                              <% end %>
+                           </div>
+                         </div>
+                       </div>
                     </div>
                       <%#= link_to 'Delete' , [delete_comment_article_path(com.id)], method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                   <% end %>
@@ -50,8 +71,10 @@
                     <%#= c.hidden_field :article_id, value: article.id %>
                     <%= c.hidden_field :commentable_type, value: "Article" %>
                     <%= c.hidden_field :commentable_id, value: article.id %>
+                    <%= c.hidden_field :parent_id, value: article.id %>
                     <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
                     <%= c.submit "Comment", class: "btn btn-primary" %>
+                     <div class="clearfix"></div>
                   <%# end %>
                 <% end %>
               </div>
@@ -65,12 +88,13 @@
   </div>
 
 <script type="text/javascript">
-  function addComment() {
-    alert("checked the button - worked");
-      $.ajax({
-        type:'POST', 
-        url: 'articles/add_comment', 
-        data: $.param({ comment: {:comment, :user_id, :article_id, :commentable_id, :commentable_type "whatever", start: 7, end: 21 }})
-      });
-  }
+
+  $(function() {
+  $('a#show_reply').click(function(event){
+    event.preventDefault();
+    $('div#reply').toggle();
+    });
+  });   
+    
 </script>
+

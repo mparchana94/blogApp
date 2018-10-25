@@ -76,3 +76,23 @@ p.copyright {
 
 }
 
+div.hidden { display: none; }
+
+/* Style the button inside the input container */
+.topnav .login-container {
+  float: right;
+}
+.topnav .login-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .login-container button:hover {
+  background: #ccc;
+}

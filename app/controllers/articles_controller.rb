@@ -1,11 +1,24 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy, :add_comment, :delete_comment]
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :add_comment, :reply]
 
   def add_comment
     @comment = @article.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash[:notice] = "Successfully created comment."
+      redirect_to articles_path
+    else
+      puts "else"
+      flash[:alert] = "Error adding reply."
+      redirect_to articles_path
+    end 
+  end
+
+  def reply
+    @comment = @article.comments.build(comment_params)
+    @comment.user_id = current_user.id
+    if @comment.save
+      flash[:notice] = "Successfully created ReplyComment."
       redirect_to articles_path
     else
       puts "else"
@@ -90,10 +103,10 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :content, sub_category_ids: [], comment_attributes: [ :comment, :user_id, :article_id, :commentable_id, :commentable_type])
+      params.require(:article).permit(:title, :content, sub_category_ids: [], comment_attributes: [:comment, :user_id, :article_id, :commentable_id, :commentable_type])
     end
 
     def comment_params
-      params.require(:comment).permit(:comment, :user_id, :article_id, :commentable_id, :commentable_type) 
+      params.require(:comment).permit(:comment, :user_id, :article_id, :commentable_id, :commentable_type, :parent_id) 
     end
 end
