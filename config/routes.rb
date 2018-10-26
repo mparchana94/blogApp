@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-        sessions: 'users/sessions'
-      }
+  devise_for :users, :controllers => { registrations: 'registrations' }
+  
   resources :categories do
     get :sub_category, on: :collection
   end

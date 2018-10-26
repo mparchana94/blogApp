@@ -33,12 +33,15 @@
                   <% article.comments.each do |com| %>
                     <div class="card-body">
                       <p class="card-text"></p>
-                      <p><%= com.user.user_image %></p>
+                        <li class="round-image-50">
+                          <%= image_tag(com.user.user_image.url(:thumb)) if com.user.user_image?%> 
+                        </li>
+                        <%#= (image_tag com.user.user_image) %>
+                        <p><%= com.user.user_image %></p>
                         <p><%= com.user.email %></p>
                         <p><%= com.comment %></p>
                         <p><%= localize(com.created_at, format: :long) %></p>
-                        <%#= link_to "Edit", edit_article_path([com.commentable, com]), class: 'edit-comment-link'  %>
-                       <div class="row justify-content-center align-items-center" class="col-md-4">
+                        <div class="row justify-content-center align-items-center" class="col-md-4">
                          <div class="col-8 sm-10">
                            <div class="form-group">
                               <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>

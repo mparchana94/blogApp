@@ -33,22 +33,18 @@
                 <%#= link_to 'Logout', destroy_user_session_path, :method => :delete %>
               </li>
             <% else %>
-            
 
             <% end %>
           </ul>
         </div>
 
-
         <form class="form-inline my-2 my-lg-0">
           <%= form_tag(articles_path, :method => "get", id: "search-form") do |f| %>
             <%= text_field_tag :search, params[:search], placeholder: "Search articles" %>
-            <%= submit_tag "Search", class: "btn btn-primary" %>
+            <%= submit_tag "Search", class: "btn btn-primary" %> |
           <% end %>
         </form> 
-
-
-      
+        
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false"> Hello Admin</a>
@@ -56,6 +52,8 @@
             <%= link_to 'My Account', edit_user_registration_path, :class => "dropdown-item" %>
             <%= link_to 'Edit profile', edit_user_registration_path, :class => "dropdown-item" %>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class =>"dropdown-item" %>
+
+            <li class="round-image-50"><%= image_tag(current_user.user_image.url(:thumb)) %></li>
           </div>
         </li>
       <% else %>
@@ -63,8 +61,7 @@
           <%= link_to 'Login', new_user_session_path, class: "btn btn-primary" %>
           <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %>
         </li>
-        <% end %>
+      <% end %>
     </ul>
-
   </div>
 </nav
