@@ -46,7 +46,7 @@
             <%= submit_tag "Search", class: "btn btn-primary" %>
           <% end %>
         </form> 
-      
+
 
       
       <% if user_signed_in? %>
@@ -58,11 +58,12 @@
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class =>"dropdown-item" %>
           </div>
         </li>
-      <% end %>
+      <% else %>
         <li class="nav-item navbar-right">
           <%= link_to 'Login', new_user_session_path, class: "btn btn-primary" %>
           <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %>
         </li>
+        <% end %>
     </ul>
 
   </div>
