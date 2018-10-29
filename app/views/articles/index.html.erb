@@ -27,62 +27,73 @@
           </div>
 
           <div class="row">
-            <div class="col-6 col-md-4"></div>
-              <div class="col-6 col-md-4">
-                <div class="card text-center">
-                  <% article.comments.each do |com| %>
-                    <div class="card-body">
-                      <p class="card-text"></p>
-                        <li class="round-image-50">
-                          <%= image_tag(com.user.user_image.url(:thumb)) if com.user.user_image?%> 
-                        </li>
-                        <%#= (image_tag com.user.user_image) %>
-                        <p><%= com.user.user_image %></p>
-                        <p><%= com.user.email %></p>
+            <div class="col-2 col-md-2"></div>
+            <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
+              <div class="jumbotron">
+                <% article.comments.each do |com| %>
+                   <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-2 mb-4">
+
+                        <%= image_tag(com.user.user_image.url(:thumb), class: "rounded-circle") if com.user.user_image?%>
+                      </div>
+                      <div class="col-sm-2 mb-4"></div>
+                      <div class="col-sm-8 mt-3">
                         <p><%= com.comment %></p>
-                        <p><%= localize(com.created_at, format: :long) %></p>
-                        <div class="row justify-content-center align-items-center" class="col-md-4">
-                         <div class="col-8 sm-10">
-                           <div class="form-group">
-                              <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
-                                 <%= c.hidden_field :user_id, value: current_user.id %>
-                                 <%= c.hidden_field :parent_id, value: article.id %>
-                                <a href="#" id="show_reply">Reply</a>
-                                <div id="reply" class="hidden">
-                                  <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "comment " %>
-                                   <%= c.submit "Reply", class: "btn btn-primary" %>
-                                </div>
-                                <div class="clearfix"></div>
-                              <% end %>
-                           </div>
-                         </div>
-                       </div>
+                      </div> 
                     </div>
-                      <%#= link_to 'Delete' , [delete_comment_article_path(com.id)], method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                        <div class="col-sm-8">   
+                          <p><%= com.user.email %></p>
+                        </div>
+                      <div class="col-sm-4"></div>
+                        <div class="col-sm-8">
+                          <p><%= localize(com.created_at, format: :long) %></p>
+                        </div>
+                    </div>
+                   
+                      <div class="row justify-content-center align-items-center" class="col-md-8">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                                <%= c.hidden_field :user_id, value: current_user.id %>
+                                <%= c.hidden_field :parent_id, value: article.id %>
+                                <a href="#" class="<%= com.id %>" id="show_reply">Reply</a>
+                                <div id="reply_<%= com.id %>" class="hidden">
+                                  <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "comment " %>
+                                  <%= c.submit "Reply", class: "btn btn-primary" %>
+                                </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                   
+                  </div>
+                <% end %>
+              </div>
+            </div>   
+          </div>
+          
+            <div class="row justify-content-center align-items-center" class="col-md-4">
+              <div class="col-4 sm-8">
+                <div class="form-group">
+                  <%= simple_nested_form_for(:comment, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                    <%#= c.simple_fields_for :comments, @comment do |c|  %>
+                      <%= c.hidden_field :user_id, value: current_user.id %>
+                      <%#= c.hidden_field :article_id, value: article.id %>
+                      <%= c.hidden_field :commentable_type, value: "Article" %>
+                      <%= c.hidden_field :commentable_id, value: article.id %>
+                      <%= c.hidden_field :parent_id, value: article.id %>
+                      <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
+                      <%= c.submit "Comment", class: "btn btn-primary" %>
+                       <div class="clearfix"></div>
+                    <%# end %>
                   <% end %>
                 </div>
               </div>
-            <div class="col-6 col-md-4"></div>
-          </div>
-          
-          <div class="row justify-content-center align-items-center" class="col-md-4">
-            <div class="col-4 sm-10">
-              <div class="form-group">
-                <%= simple_nested_form_for(:comment, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
-                  <%#= c.simple_fields_for :comments, @comment do |c|  %>
-                    <%= c.hidden_field :user_id, value: current_user.id %>
-                    <%#= c.hidden_field :article_id, value: article.id %>
-                    <%= c.hidden_field :commentable_type, value: "Article" %>
-                    <%= c.hidden_field :commentable_id, value: article.id %>
-                    <%= c.hidden_field :parent_id, value: article.id %>
-                    <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
-                    <%= c.submit "Comment", class: "btn btn-primary" %>
-                     <div class="clearfix"></div>
-                  <%# end %>
-                <% end %>
-              </div>
             </div>
-          </div>
+          
           <hr>
         <% end %>
       </div>
@@ -90,12 +101,14 @@
       <%= will_paginate @articles, :container => false %>
   </div>
 
+
 <script type="text/javascript">
 
   $(function() {
   $('a#show_reply').click(function(event){
     event.preventDefault();
-    $('div#reply').toggle();
+    var comm_id = $(this).attr('class');
+    $('div#reply_'+comm_id).toggle();
     });
   });   
     
