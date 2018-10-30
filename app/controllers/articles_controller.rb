@@ -14,46 +14,8 @@ class ArticlesController < ApplicationController
     end 
   end
 
-  def reply
-    @comment = @article.comments.build(comment_params)
-    @comment.user_id = current_user.id
-    if @comment.save
-      flash[:notice] = "Successfully created ReplyComment."
-      redirect_to articles_path
-    else
-      puts "else"
-      flash[:alert] = "Error adding comment."
-      redirect_to articles_path
-    end 
-  end
-
-  def index
-    search = params[:search]
-    if search.present?
-      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 3)
-      @article = Article.where('content LIKE ? ', search).paginate(page: params[:page], per_page: 3)
-    else
-      @articles = Article.paginate(page: params[:page], per_page: 3)
-      # @articles = Article.all
-    end
-  end
-
-  def show
-    @comments = Comment.where(article_id: @article.id)
-  end
-
-  def new
-    @article = Article.new
-    @sub_categories = SubCategory.all
-  end
-
-  def edit
-    @sub_categories = SubCategory.all
-  end
-
   def all_articles
-    @articles = Article.all
-    
+    @articles = Article.all  
   end
 
   def create
@@ -71,6 +33,51 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    @article.destroy
+    respond_to do |format|
+      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def edit
+    @sub_categories = SubCategory.all
+  end
+
+  def index
+    search = params[:search]
+    if search.present?
+      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 3)
+      @article = Article.where('content LIKE ? ', search).paginate(page: params[:page], per_page: 3)
+    else
+      @articles = Article.paginate(page: params[:page], per_page: 3)
+      # @articles = Article.all
+    end
+  end
+
+  def new
+    @article = Article.new
+    @sub_categories = SubCategory.all
+  end
+
+  def reply
+    @comment = @article.comments.build(comment_params)
+    @comment.user_id = current_user.id
+    if @comment.save
+      flash[:notice] = "Successfully created ReplyComment."
+      redirect_to articles_path
+    else
+      puts "else"
+      flash[:alert] = "Error adding comment."
+      redirect_to articles_path
+    end 
+  end
+
+  def show
+    @comments = Comment.where(article_id: @article.id)
+  end
+
   def update
     if (current_user.admin) || (@article.user_id == current_user.id)
       @sub_categories = SubCategory.all
@@ -86,14 +93,6 @@ class ArticlesController < ApplicationController
      end
     else
       redirect_to @article, notice: 'Not admin or creator.'
-    end
-  end
-
-  def destroy
-    @article.destroy
-    respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

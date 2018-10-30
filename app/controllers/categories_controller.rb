@@ -1,26 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @categories = Category.all
-  end
-
-  def show
-    @category = Category.find(params[:id]) 
-  end
-
-  def new
-    @category = Category.new
-    @category.sub_categories.build
-  end
- 
-  def edit
-  end
-
-  def sub_category
-    @category = Category.all
-  end
-
   def create
     @category = Category.new(category_params)
   
@@ -35,6 +15,34 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @category.destroy
+    respond_to do |format|
+      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def edit
+  end
+
+  def index
+    @categories = Category.all
+  end
+
+  def new
+    @category = Category.new
+    @category.sub_categories.build
+  end
+  
+  def show
+    @category = Category.find(params[:id]) 
+  end
+
+  def sub_category
+    @category = Category.all
+  end
+
   def update
     respond_to do |format|
       if @category.update(category_params)
@@ -46,15 +54,7 @@ class CategoriesController < ApplicationController
       end
     end
   end
-
-  def destroy
-    @category.destroy
-    respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
+  
   private
   
     def set_category

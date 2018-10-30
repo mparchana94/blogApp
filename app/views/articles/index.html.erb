@@ -1,116 +1,103 @@
 <h1> Articles</h1>
 <div class="container text-center" style= "margin-left: 400px;">
-<%= link_to 'New Article', new_article_path, class: "btn btn-primary" %>
+  <%= link_to 'New Article', new_article_path, class: "btn btn-primary" %>
 </div>
-  <div class="d-flex align-items-center flex-column justify-content-center h-100" id="header" style="margin-left: 100px; margin-right: 100px; margin-top: 30px;">
-    <ul class="pagination justify-content-center">
-      <div class="page-item">
-        <% @articles.each do |article| %>
-          <div class="row" style="height: 80px">
-            <div class="col-6 col-md-4">
-              Date: <%= article.created_at.strftime('%A, %B %d') %>
-            </div>
-            <div class="col-6 col-md-4">
-              <b><h2><%= article.title %></h2></b>
-            </div>
-            <div class="col-6 col-md-4 text-right">
-              <span class="float-right">
-                <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
-              </span> 
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col align-self-center">
-              <%= article.content %>
-            </div>
+<div class="d-flex align-items-center flex-column justify-content-center h-100" id="header" style="margin-left: 75px; margin-right: 75px; margin-top: 20px;">
+  <ul class="pagination justify-content-center">
+    <div class="page-item">
+      <% @articles.each do |article| %>
+        <div class="row" style="height: 80px">
+          <div class="col-6 col-md-4">
+            Date: <%= article.created_at.strftime('%A, %B %d') %>
           </div>
-
-          <div class="row">
-            <div class="col-2 col-md-2"></div>
-            <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
-              <div class="jumbotron">
-                <% article.comments.each do |com| %>
-                   <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-2 mb-4">
-
-                        <%= image_tag(com.user.user_image.url(:thumb), class: "rounded-circle") if com.user.user_image?%>
-                      </div>
-                      <div class="col-sm-2 mb-4"></div>
-                      <div class="col-sm-8 mt-3">
-                        <p><%= com.comment %></p>
-                      </div> 
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-4"></div>
-                        <div class="col-sm-8">   
-                          <p><%= com.user.email %></p>
-                        </div>
-                      <div class="col-sm-4"></div>
-                        <div class="col-sm-8">
-                          <p><%= localize(com.created_at, format: :long) %></p>
-                        </div>
-                    </div>
-                   
-                      <div class="row justify-content-center align-items-center" class="col-md-8">
-                        <div class="col-sm-4">
-                          <div class="form-group">
-                            <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
-                                <%= c.hidden_field :user_id, value: current_user.id %>
-                                <%= c.hidden_field :parent_id, value: article.id %>
-                                <a href="#" class="<%= com.id %>" id="show_reply">Reply</a>
-                                <div id="reply_<%= com.id %>" class="hidden">
-                                  <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "comment " %>
-                                  <%= c.submit "Reply", class: "btn btn-primary" %>
-                                </div>
-                            <% end %>
-                          </div>
-                        </div>
-                      </div>
-                   
-                  </div>
-                <% end %>
-              </div>
-            </div>   
+          <div class="col-6 col-md-4">
+            <b><h2><%= article.title %></h2></b>
           </div>
-          
-            <div class="row justify-content-center align-items-center" class="col-md-4">
-              <div class="col-4 sm-8">
+          <div class="col-6 col-md-4 text-right">
+            <span class="float-right">
+              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+            </span> 
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col align-self-center">
+            <%= article.content %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-2 col-md-2"></div>
+          <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
+            <div style="background-color: antiquewhite;">
+              <% article.comments.each do |com| %>
                 <div class="form-group">
-                  <%= simple_nested_form_for(:comment, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
-                    <%#= c.simple_fields_for :comments, @comment do |c|  %>
-                      <%= c.hidden_field :user_id, value: current_user.id %>
-                      <%#= c.hidden_field :article_id, value: article.id %>
-                      <%= c.hidden_field :commentable_type, value: "Article" %>
-                      <%= c.hidden_field :commentable_id, value: article.id %>
-                      <%= c.hidden_field :parent_id, value: article.id %>
-                      <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
-                      <%= c.submit "Comment", class: "btn btn-primary" %>
-                       <div class="clearfix"></div>
-                    <%# end %>
-                  <% end %>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <%= image_tag(com.user.user_image.url(:thumb), class: "rounded-circle" , height: '54') if com.user.user_image?%>
+                    </div>
+                    <div class="col-sm-8">
+                      <p><%= com.comment %></p>
+                    </div> 
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-8">   
+                      <p><%= com.user.email %></p>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-8">
+                      <p><%= localize(com.created_at, format: :long) %></p>
+                    </div>
+                  </div>
+                   
+                  <div class="row justify-content-center align-items-center" class="col-md-6">
+                    <div class="col-sm-4">
+                      <%= simple_nested_form_for(:comment, :url => reply_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                        <%= c.hidden_field :user_id, value: current_user.id %>
+                        <%= c.hidden_field :parent_id, value: article.id %>
+                        <a href="#" class="<%= com.id %>" id="show_reply">Reply</a>
+                        <div id="reply_<%= com.id %>" class="hidden">
+                          <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "comment " %>
+                          <%= c.submit "Reply", class: "btn btn-primary" %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <hr>
                 </div>
-              </div>
+              <% end %>
             </div>
+          </div>   
+        </div>
           
-          <hr>
-        <% end %>
-      </div>
-    </ul>
-      <%= will_paginate @articles, :container => false %>
-  </div>
-
+        <div class="row justify-content-center align-items-center" class="col-md-4">
+          <div class="col-4 sm-8">
+            <div class="form-group">
+              <%= simple_nested_form_for(:comment, :url => add_comment_article_url(article.id), method: :post, :html=>{:multipart => true}) do |c| %>
+                <%= c.hidden_field :user_id, value: current_user.id %>
+                <%= c.hidden_field :commentable_type, value: "Article" %>
+                <%= c.hidden_field :commentable_id, value: article.id %>
+                <%= c.hidden_field :parent_id, value: article.id %>
+                <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
+                <%= c.submit "Comment", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </ul>
+    <%= will_paginate @articles, :container => false %>
+</div>
 
 <script type="text/javascript">
-
   $(function() {
   $('a#show_reply').click(function(event){
     event.preventDefault();
     var comm_id = $(this).attr('class');
     $('div#reply_'+comm_id).toggle();
     });
-  });   
-    
+  });      
 </script>
-

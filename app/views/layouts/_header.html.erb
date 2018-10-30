@@ -17,37 +17,28 @@
             <a class="dropdown-item" href="/categories">Categories</a>
             <%= link_to 'Sub Categories', sub_category_categories_path, class: "dropdown-item" %>
             <%= link_to 'All Articles', all_articles_articles_path, class: "dropdown-item" %>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
-        <% end %>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><%#= link_to 'Home', root_path %></li>
-            <% if user_signed_in? %>
-              Logged in as <strong><%= current_user.email %></strong>.
-              <li class="nav-item active">
-                <%#= link_to 'New Article', new_article_path %>
-                <%#= link_to 'My Account', edit_user_registration_path  %>
-                <%#= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-              </li>
-            <% else %>
+      <% end %>
 
-            <% end %>
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            Logged in as <strong><%= current_user.email %></strong>
+          <% end %>
+        </ul>
+      </div>
          
-        <%if user_signed_in? %>
-          <form class="form-inline my-2 my-lg-0">
-            <div style="padding-left: 245px;">
-              <%= form_tag(articles_path, :method => "get", id: "search-form") do |f| %>
-                <%= text_field_tag :search, params[:search], placeholder: "Search articles" %>
-                <%= submit_tag "Search", class: "btn btn-primary" %> |
-              <% end %>
-            </div>
-          </form>
-        <% end %> 
+      <%if user_signed_in? %>
+        <form class="form-inline my-2 my-lg-0">
+          <div style="padding-left: 245px;">
+            <%= form_tag(articles_path, :method => "get", id: "search-form") do |f| %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search articles" %>
+              <%= submit_tag "Search", class: "btn btn-primary" %> |
+            <% end %>
+          </div>
+        </form>
+      <% end %> 
         
       <% if user_signed_in? %>
         <li class="nav-item dropdown" >
@@ -57,7 +48,6 @@
             <%= link_to 'Edit profile', edit_user_registration_path, :class => "dropdown-item" %>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class =>"dropdown-item" %>
           </div>
-        </div>
         </li>
       <% else %>
         <li class="nav-item navbar-right">
