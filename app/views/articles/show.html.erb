@@ -12,7 +12,9 @@
               
         <div class="card-body text-center">
           <p class="card-text">
-            <p><%=@article.content%></p>
+            <div class= "fr-view">
+              <p><%= @article.content.html_safe %></p>
+            </div>
           </p>
         </div>
 

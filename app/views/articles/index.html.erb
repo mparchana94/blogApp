@@ -1,6 +1,6 @@
 <h1> Articles</h1>
-<div class="container text-center" style= "margin-left: 400px;">
-  <%= link_to 'New Article', new_article_path, class: "btn btn-primary" %>
+<div class="container d-flex justify-content-end">
+  <%= link_to 'New Article', new_article_path, class: "btn btn-primary"%>
 </div>
 
 <div class="d-flex align-items-center flex-column justify-content-center h-100" id="header" style="margin-left: 75px; margin-right: 75px; margin-top: 20px;">
@@ -23,11 +23,13 @@
 
         <div class="row">
           <div class="col align-self-center">
-            <%= article.content %>
+            <div class= "fr-view">
+              <%= article.content.html_safe %>
+            </div>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row ">
           <div class="col-2 col-md-2"></div>
           <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
             <div style="background-color: antiquewhite;">
@@ -39,7 +41,7 @@
                     </div>
                     <div class="col-sm-8">
                       <p><%= com.comment %></p>
-                    </div> 
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-4"></div>
