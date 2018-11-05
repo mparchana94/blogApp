@@ -1,18 +1,15 @@
-<%= form_for(@article) do |f| %>
-  <%#= f.error_notification %>
+<%= simple_form_for(@article) do |f| %>
+  <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="row">
     <div class="col-2"></div>
       <div class="col-6">
         <div class="form-inputs">
-          <%= f.label :title %>
-          <%= f.text_field :title, size: 30 %>
-        </div>
-        <div class="col-6">
-          <%= f.label :content %>
-          <%= f.text_area :content, size:40, id: "wysiwyg" %>
-        </div>
-        <br>
+          <%#= f.label :title %>
+          <%= f.input :title, size: 30 %>
+          <%#= f.label :content %>
+          <%= f.input :content, :input_html => { id: "wysiwyg"}%>
+          <br>
           <div class="container">
             <div class="row">
               <% @sub_categories.all.each do |sub_category| %>
@@ -24,11 +21,12 @@
               <% end %>
             </div>
           </div>
-       
+       </div>
       </div>
   </div>
 
-  <div class="form-actions text-center"> 
+  <br>
+  <div class="form-actions d-flex justify-content-center"> 
     <%= f.button :submit , class: "btn btn-success" %>
   </div>
 <% end %>
