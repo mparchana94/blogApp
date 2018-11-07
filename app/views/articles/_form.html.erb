@@ -3,26 +3,24 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="row">
     <div class="col-2"></div>
-      <div class="col-6">
-        <div class="form-inputs">
-          <%#= f.label :title %>
-          <%= f.input :title, size: 30 %>
-          <%#= f.label :content %>
-          <%= f.input :content, :input_html => { id: "wysiwyg"}%>
-          <br>
-          <div class="container">
-            <div class="row">
-              <% @sub_categories.all.each do |sub_category| %>
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                  <li><%= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
-                  <%= sub_category.name %></li>
-                </div>
-                <br>
-              <% end %>
-            </div>
+    <div class="col-6">
+      <div class="form-inputs">
+        <%= f.input :title, size: 30 %>
+        <%= f.input :content, :input_html => { id: "wysiwyg"}%>
+        <br>
+        <div class="container">
+          <div class="row">
+            <% @sub_categories.all.each do |sub_category| %>
+              <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                <li><%= check_box_tag "article[sub_category_ids][]", sub_category.id, @article.sub_category_ids.include?(sub_category.id)%>
+                <%= sub_category.name %></li>
+              </div>
+              <br>
+            <% end %>
           </div>
-       </div>
+        </div>
       </div>
+    </div>
   </div>
 
   <br>
@@ -36,7 +34,6 @@
     inlineMode: false,
     heightMin: '200px',
     widthMin: '500px',
-    toolbarButtons: ['bold', 'italic', 'underline'],
+    toolbarButtons: ['fullscreen','bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'print', 'help','|', 'undo', 'redo' ],
   })
 </script>
-

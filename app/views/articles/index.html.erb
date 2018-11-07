@@ -30,18 +30,18 @@
         </div>
 
         <div class="row ">
-          <div class="col-2 col-md-2"></div>
-          <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
-            <div style="background-color: antiquewhite;">
-              <% article.comments.each do |com| %>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-sm-2">
-                      <%= image_tag(com.user.user_image.url(:thumb), class: "rounded-circle" , height: '54') if com.user.user_image?%>
-                    </div>
-                    <div class="col-sm-8">
-                      <p><%= com.comment %></p>
-                    </div>
+        <div class="col-2 col-md-2"></div>
+        <div class="col-8 col-md-6 mx-auto mb-4 mt-2">
+          <div style="background-color: antiquewhite;">
+            <% article.comments.each do |com| %>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <%= image_tag(com.user.user_image.url(:thumb), class: "rounded-circle" , height: '54') if com.user.user_image?%>
+                  </div>
+                  <div class="col-sm-8">
+                    <p><%= com.comment %></p>
+                  </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-4"></div>
