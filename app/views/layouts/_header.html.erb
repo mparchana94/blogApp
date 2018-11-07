@@ -45,7 +45,6 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false"> Hello Admin</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to 'My Account', edit_user_registration_path, :class => "dropdown-item" %>
-            <%= link_to 'Edit profile', edit_user_registration_path, :class => "dropdown-item" %>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class =>"dropdown-item" %>
           </div>
         </li>
