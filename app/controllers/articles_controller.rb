@@ -48,8 +48,7 @@ class ArticlesController < ApplicationController
   def index
     search = params[:search]
     if search.present?
-      @articles = Article.where('title LIKE ? ', search).paginate(page: params[:page], per_page: 3)
-      @article = Article.where('content LIKE ? ', search).paginate(page: params[:page], per_page: 3)
+      @articles = Article.article_search(search, params[:page])
     else
       @articles = Article.paginate(page: params[:page], per_page: 3)
       # @articles = Article.all

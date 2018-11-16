@@ -16,7 +16,7 @@
           </div>
           <div class="col-6 col-md-4 text-right">
             <span class="float-right">
-              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+              <%= link_to 'Edit', edit_article_path(article), class: "btn btn-sm btn-primary" %>
             </span> 
           </div>
         </div>
@@ -83,11 +83,12 @@
                 <%= c.hidden_field :commentable_id, value: article.id %>
                 <%= c.hidden_field :parent_id, value: article.id %>
                 <%= c.input :comment, as: :text, input_html: {rows: 5} , placeholder: "Add Comment " %>
-                <%= c.submit "Comment", class: "btn btn-primary" %>
+                <%= c.submit "Post Comment", class: "btn btn-primary" %>
               <% end %>
             </div>
           </div>
         </div>
+        <hr>
       <% end %>
     </div>
   </ul>

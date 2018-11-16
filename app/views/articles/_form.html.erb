@@ -25,7 +25,7 @@
 
   <br>
   <div class="form-actions d-flex justify-content-center"> 
-    <%= f.button :submit , class: "btn btn-success" %>
+    <%= f.button :submit , class: "btn btn-success col-md-4 pull-left" %>
   </div>
 <% end %>
 
@@ -34,6 +34,14 @@
     inlineMode: false,
     heightMin: '200px',
     widthMin: '500px',
-    toolbarButtons: ['fullscreen','bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'print', 'help','|', 'undo', 'redo' ],
-  })
+    toolbarButtons: ['fullscreen','bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'color', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'print', 'help','|', 'undo'],
+  });
+
+  $("input").focus(function(){
+        $(this).css("background-color", "#cccccc");
+    });
+  $("input").blur(function(){
+        $(this).css("background-color", "#ffffff");
+    });
+
 </script>
