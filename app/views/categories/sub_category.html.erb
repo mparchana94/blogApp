@@ -2,7 +2,6 @@
 <br></br>
 <div class="container">
   <% @category.each do |f| %>
-    <p><%#= f.name %></p>
     <% f.sub_categories.each do |sub| %>
       <p><%= sub.name %></p>
     <% end%>

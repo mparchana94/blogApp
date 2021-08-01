@@ -11,19 +11,18 @@
         <td><%= @category.name %></td>
       </tr>
 
-      <tr>
-        
+      <tr> 
         <td><strong>Sub Categories</strong></td>
-         <% if @category.sub_categories.any? %>
+        <% if @category.sub_categories.any? %>
         <td>
           <ul>
             <% @category.sub_categories.each do |sub_category| %>
               <li><%= sub_category.name %></li>
             <% end %>
           </ul>
-            <% else %>
-              <p> none available </p>
-            <% end %>
+          <% else %>
+            <p> none available </p>
+          <% end %>
         </td>
       </tr>
     </tbody>
@@ -31,6 +30,6 @@
 </div>
 
 <div class="mb-4 mt-2">
-  <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-info" %> |
-  <%= link_to 'Back', categories_path, class: "btn  btn-secondary" %>   
+  <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-sm btn-info" %> |
+  <%= link_to 'Back', categories_path, class: "btn btn-sm btn-secondary" %>   
 </div>

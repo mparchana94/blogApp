@@ -12,7 +12,9 @@
               
         <div class="card-body text-center">
           <p class="card-text">
-            <p><%=@article.content%></p>
+            <div class= "fr-view">
+              <%= @article.content.html_safe %>
+            </div>
           </p>
         </div>
 
@@ -31,7 +33,7 @@
   </div>
 </div>
    
-<div class="mb-4 mt-2">   
-  <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-info" %> |
-  <%= link_to 'Back', articles_path, class: "btn btn-secondary" %>
+<div class="mb-4 mt-2 d-flex justify-content-center">   
+  <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-sm btn-info" %> |
+  <%= link_to 'Back', articles_path, class: "btn btn-sm btn-secondary" %>
 </div>
